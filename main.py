@@ -1,6 +1,4 @@
 from Router.userRouter import user
-from Router.productRouter import product
-from Router.router import compra
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from connection.connection import database,Session
@@ -20,8 +18,6 @@ async def shutdown():
 
 """
 app.include_router(user)
-app.include_router(product)
-app.include_router(compra)
 # Configuración de CORS
 origins = [
     "http://localhost:4200"

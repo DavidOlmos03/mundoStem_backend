@@ -3,6 +3,6 @@ from typing import Optional
 
 class UserSchema(BaseModel):
     id: Optional[int]
-    nombre: str
-    email: str
-    contrase: str
+    full_name: str
+    email_address: str
+    password: str

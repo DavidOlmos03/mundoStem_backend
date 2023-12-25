@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from databases import Database
 
 
-url = "mysql+mysqlconnector://root@localhost/p_trabajoudea"
+url = "mysql+mysqlconnector://root@localhost/mundostem"
 engine = create_engine(url)
 meta_data = MetaData()
 Base = declarative_base()

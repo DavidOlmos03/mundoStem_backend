@@ -2,11 +2,11 @@ from sqlalchemy import Column, Integer, String
 from connection.connection import Base
 
 class user_model(Base):
-    __tablename__ = 'usuarios'  # Nombre de la tabla en la base de datos
+    __tablename__ = 'user'  # Nombre de la tabla en la base de datos
     id = Column(Integer, primary_key=True)
-    nombre = Column(String(255),nullable = False)
-    email = Column(String(255), nullable=False)
-    contrase = Column(String(30), nullable=False)
+    full_name = Column(String(255),nullable = False)
+    email_address = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
 
 
 """

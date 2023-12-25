@@ -24,8 +24,8 @@ def create_user(data_user: UserSchema):
     if existing_user:
         session.commit()
         raise HTTPException(status_code=400, detail=f"User {data_user.id} aleready exists")
-    new_user = user_model(id = data_user.id, nombre=data_user.nombre, email=data_user.email, contrase=data_user.contrase)
-    new_user.contrase = bcrypt_sha256.hash(new_user.contrase)
+    new_user = user_model(id = data_user.id, full_name=data_user.full_name, email_address=data_user.email_address, password=data_user.password)
+    new_user.password = bcrypt_sha256.hash(new_user.password)
     session.add(new_user)
     session.commit()
     #session.refresh(new_user)   
