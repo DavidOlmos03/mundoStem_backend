@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from connection.connection import session
-from schema.compra_schema import compraSchema
+##from schema.compra_schema import compraSchema
 from model.user import user_model
-from model.product import product_model
-from model.compra import compra_model
+##from model.product import product_model
+##from model.compra import compra_model
 from sqlalchemy.exc import IntegrityError
 
 

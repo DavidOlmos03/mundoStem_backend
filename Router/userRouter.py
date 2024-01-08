@@ -31,7 +31,7 @@ def create_user(data_user: UserSchema):
     #session.refresh(new_user)   
     return new_user
 
-@user.get("/api/read_user/{user_id}", tags=["CrudUser"])
+@user.get("/api/read_user_by_id/{user_id}", tags=["CrudUser"])
 def get_users(id: int):
     user = session.query(user_model).get(id)
     if not user:
@@ -62,3 +62,43 @@ def delete_user(user_id: int):
         return {"message": "User deleted successfully"}
     session.commit()
     raise HTTPException(404, f"id {user_id} not found")
+
+
+"""
+@user.get("/api/read_user_by_email/{user_email}", tags=["CrudUser"])
+def get_user_by_email(user_email: str, user_password:str):
+    user = session.query(user_model).filter_by(email_address = user_email).first()
+    
+    if not user:
+        raise HTTPException(404,f"User with {user_email} not found")
+    
+    stored_hash = user.password;
+    password_matched = bcrypt_sha256.verify(user_password, stored_hash)
+
+    if not password_matched:
+        raise HTTPException(401, "Invalid password")
+    
+    return user
+"""
+@user.post("/api/read_user_by_email", tags=["CrudUser"])
+def get_user_by_email(user_data: dict):
+    user_email = user_data.get("email_address", "")
+    user_password = user_data.get("password", "")
+
+    user = session.query(user_model).filter_by(email_address=user_email).first()
+    
+    if not user:
+        raise HTTPException(404, f"User with {user_email} not found")
+    
+    stored_hash = user.password
+    password_matched = bcrypt_sha256.verify(user_password, stored_hash)
+
+    if not password_matched:
+        raise HTTPException(401, "Invalid password")
+    
+    return user
+
+
+#@user.verify_user("/api/verify_user", tags=["CrudUser"])
+#def verify_user(username:str, password):
+    #user
