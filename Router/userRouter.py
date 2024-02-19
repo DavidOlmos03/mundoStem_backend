@@ -12,7 +12,7 @@ import webbrowser
 """
 from fastapi import FastAPI, Depends, HTTPException, status
 from jose import JWTError,jwt
-from passlib.context import CryptContext
+
 
 
 user = APIRouter()
@@ -119,33 +119,6 @@ SECRET_KEY = "mundoSteam"  # Cambiar por una clave secreta segura
 ALGORITHM = "HS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# Simulación de base de datos de usuarios
-"""
-
-fake_users_db = {
-    "user": {
-        "email_address": "user",
-        "hashed_password": "$2a$12$VPcd4n1RGNeEy6F5kNeLYuctc6Cu5Tt4FDciwWaxPVDt2fgY63QRy",  # Password: 1234567
-        "disabled": False,
-    }
-}"""
-# Funciones de seguridad
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
-def authenticate_user(fake_db, username: str, password: str):
-    user = fake_db.get(username)
-    
-    if not user:
-        return False
-    if not verify_password(password, user["hashed_password"]):
-        return False
-    return user
 
 def create_access_token(data: dict):
     to_encode = data.copy()   
