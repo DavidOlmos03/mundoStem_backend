@@ -3,7 +3,11 @@ from connection.connection import session
 from schema.book_schema import BookSchema
 from model.book import book_model
 from sqlalchemy.orm import Session
-
+"""
+    Para hacer la consulta dado el nombre de la tabla
+"""
+from sqlalchemy import MetaData,Table
+from connection.connection import engine,Base
 
 
 
@@ -55,6 +59,19 @@ def get_all_books():
         books_data.append(book_dict)
     return books_data
 
+# Endpoint para consultar la tabla
+@book.get("/books/{table_name}", tags=["Books"])
+def get_books_by_table_name(table_name: str):
+    metadata = MetaData()
+    table = Table(table_name, metadata, autoload_with=engine)
+
+    class DynamicModel(Base):
+        __table__ = table
+
+    query = session.query(DynamicModel)
+    results = query.all()
+
+    return results
 
 @book.put("/api/update_book/{book_id}", tags=["CrudBook"])
 def update_book(data_update: BookSchema , book_id: int):

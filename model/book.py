@@ -1,8 +1,11 @@
-from sqlalchemy import Column, Integer, String
-from connection.connection import Base
+from sqlalchemy import Column, Integer, String, inspect, MetaData
+from connection.connection import Base, engine
+
+
+
 
 class book_model(Base):
-    __tablename__ = 'book'  # Nombre de la tabla en la base de datos
+    __tablename__ = 'mechanics_books'  # Nombre de la tabla en la base de datos
     id = Column(Integer, primary_key=True)
     title = Column(String(255),nullable = False)
     authors = Column(String(255), nullable=False)
@@ -12,6 +15,8 @@ class book_model(Base):
     extension = Column(String(255), nullable=True)
     size = Column(Integer, nullable=True)
     summary = Column(String(255), nullable=True)
+
+    
 
 
 """
